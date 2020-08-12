@@ -3,6 +3,7 @@ package utils.browserManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -31,8 +32,13 @@ public class ChromeDriverManager {
             }
         } else {
             System.out.println("--LOCAL--");
-            System.setProperty("webdriver.chrome.driver", pathToWebDriver + "chromedriver.exe");
-            driver = new ChromeDriver(chromeOptions());
+            if (browser.equals("chrome")) {
+                System.setProperty("webdriver.chrome.driver", pathToWebDriver + "chromedriver.exe");
+                driver = new ChromeDriver(chromeOptions());
+            } else if (browser.equals("internetExplorer")) {
+                System.setProperty("webdriver.ie.driver", pathToWebDriver + "IEDriverServer.exe");
+                driver = new InternetExplorerDriver();
+            }
         }
         return driver;
     }

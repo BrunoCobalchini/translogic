@@ -52,6 +52,8 @@ public class PropertiesHelper {
             .concat(File.separator)
             .concat("drivers")
             .concat(File.separator);
+    //Browser
+    public static String browser;
 
     //Selenium GRID
     public static String urlSeleniumGRID;
@@ -62,8 +64,7 @@ public class PropertiesHelper {
     public static String highlight;
 
     //URL Systems
-    public static String urlMvn;
-    public static String urlGoogle;
+    public static String urlTranslogic;
 
     //DB settings
     public static String driverDB;
@@ -71,7 +72,7 @@ public class PropertiesHelper {
     public static String usernameDB;
     public static String passwordDb;
 
-    //GOP Users
+    //Translogic Users
     public static String username;
     public static String password;
 
@@ -88,14 +89,14 @@ public class PropertiesHelper {
             e.printStackTrace();
         }
         urlSeleniumGRID = setupProperties.getProps().getProperty("urlSeleniumHub");
+        browser = setupProperties.getProps().getProperty("browser");
         executionType = setupProperties.getProps().getProperty("executionType");
         waitTime = setupProperties.getProps().getProperty("waitTime");
         highlight = setupProperties.getProps().getProperty("highlight");
         uploadPath = setupProperties.getProps().getProperty("uploadPath");
-        urlMvn = setupProperties.getProps().getProperty("urlMvn");
-        urlGoogle = setupProperties.getProps().getProperty("urlGoogle");
-        username = setupProperties.getProps().getProperty("userGOP");
-        password = setupProperties.getProps().getProperty("passGOP");
+        urlTranslogic = setupProperties.getProps().getProperty("urlTranslogic");
+        username = setupProperties.getProps().getProperty("userTl");
+        password = setupProperties.getProps().getProperty("passTl");
         driverDB = setupProperties.getProps().getProperty("driverDB");
         urlDB = setupProperties.getProps().getProperty("urlDB");
         usernameDB = setupProperties.getProps().getProperty("usernameDB");

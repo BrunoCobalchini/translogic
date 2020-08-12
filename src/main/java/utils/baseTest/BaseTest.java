@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.annotation.Nullable;
@@ -14,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.Set;
 
@@ -101,6 +103,16 @@ public class BaseTest {
             fail("Elemento não encontrado: " + e);
         }
     }
+    public void selectElement(WebElement element, String item) {
+        try {
+            exist(element);
+            highlightElement(element);
+            Select select = new Select(element);
+            select.selectByVisibleText(item);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
     public void exist(WebElement element) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT);
@@ -109,6 +121,14 @@ public class BaseTest {
             //highlightElement(element);
         } catch (Exception e) {
             fail("Elemento esperado não foi encontrado: " + e.getMessage());
+        }
+    }
+    public void existFrame(String nameOrId) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT);
+            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(nameOrId));
+        } catch (Exception e) {
+            fail("iFrame esperado não foi encontrado: " + e.getMessage());
         }
     }
     public void waitButtonClickable(WebElement element) {
@@ -241,6 +261,12 @@ public class BaseTest {
         } else {
             return String.valueOf(minuteRandom);
         }
+    }
+    public static String getCurrentDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataAtual = new Date();
+        String dataAtualFormatada = sdf.format(dataAtual);
+        return  dataAtualFormatada;
     }
 
     //**** file methods ****
