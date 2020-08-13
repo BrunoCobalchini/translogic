@@ -1,5 +1,6 @@
 package model.entities;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.baseTest.BaseTest;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class OS extends BaseTest {
+
+    private static String validaOrigemOS;
+    private static String currentWindow;
+    private static String newWindow;
 
     @FindBy(how = How.CLASS_NAME, using = "TITULO_TEXTO_geral")
     public WebElement validaTelaSelecionada;
@@ -47,6 +55,12 @@ public class OS extends BaseTest {
     @FindBy(how = How.ID, using = "b_Salvar")
     public WebElement salvar;
 
+    @FindBy(how = How.CSS, using = "div[id='linhasGrid']>table[class='TABELA'] :nth-child(1)")
+    public List<WebElement> tableOS;
+
+    @FindBy(how = How.CSS, using = "[src*='all_ico_lupa.gif']")
+    public WebElement lupa;
+
     public OS () {
         PageFactory.initElements(driver, this);
     }
@@ -54,6 +68,8 @@ public class OS extends BaseTest {
     public void validaTelaSelecionada(){
         existFrame("ext-gen113");
         Assert.assertTrue(getText(validaTelaSelecionada).equals("Visão"));
+        currentWindow = driver.getWindowHandle();
+        System.out.println("Current handle: " + currentWindow);
     }
 
     public void selecionaVisao(String tipoVisao){
@@ -74,12 +90,17 @@ public class OS extends BaseTest {
     }
 
     public void setPrefixo(String prefixoOS){
-        switchTab();
+        newWindow = driver.getWindowHandle();
+        System.out.println("new handle: " + newWindow);
+        driver.switchTo().window(newWindow);
+        //switchTab();
+        exist(prefixo);
         sendKeys(prefixo, prefixoOS);
     }
 
     public void setOrigem(String origemOS){
         sendKeys(origem, origemOS);
+        this.validaOrigemOS = origemOS;
     }
 
     public void setDestino(String destinoOS){
@@ -92,13 +113,33 @@ public class OS extends BaseTest {
         selectElement(rota, rotaOS);
     }
 
-    public void setDataEHoraPartida(){
+    public void setData(){
         sendKeys(dataPartida, getCurrentDate());
+    }
+
+    public void setHora(){
         sendKeys(horaPartida, "00:00");
     }
 
     public void salvaEscalaTrem(){
         clickAndHighlight(salvar);
+
+        waitTime(3500);
+        if(driver.switchTo().alert() != null) {
+            Alert alert = driver.switchTo().alert();
+            alert.dismiss();
+        }
+        waitTime(2500);
+    }
+
+    public void handlingTable(){
+        waitTime(5000);
+        driver.switchTo().window(currentWindow);
+        //switchTab();
+        waitTime(5000);
+        clickAndHighlight(lupa);
+        String resultData = tableOS.get(0).getText().trim();
+        Assert.assertTrue(resultData.contains(validaOrigemOS));
     }
 
 

@@ -12,7 +12,7 @@
       Quando Clico em pesquisar
       Entao O botão para preencher a escala do trem é apresentada
       Dado Que eu esteja na tela para preencher a escala do trem
-      E Informe o prefixo "ABC"
+      E Informe o prefixo "AA6"
       E Informe a origem "ZBL"
       E Informe o destino "ZAC"
       E Selecione a rota "ZBL-ZBV-ZAC"

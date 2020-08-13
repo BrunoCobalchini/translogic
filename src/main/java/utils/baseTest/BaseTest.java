@@ -46,7 +46,6 @@ public class BaseTest {
     protected void switchTab(){
         // Current window handle
         //String winHandleBefore = driver.getWindowHandle();
-        //String winHandleBefore = driver.getWindowHandle();
 
         for(String winHandle : driver.getWindowHandles()){
             driver.switchTo().window(winHandle);
@@ -54,12 +53,20 @@ public class BaseTest {
         }
 
         // Close the new window, if that window no more required
-        //driver.close();
 
         // Switch back to original browser (first window)
         //driver.switchTo().window(winHandleBefore);
         // Continue with original browser (first window)
 
+    }
+
+    public String getCurrentNameWindow(){
+        String winBefore = driver.getWindowHandle();
+        return winBefore;
+    }
+    public String getNewNameWindow(){
+        String newWindow = driver.getWindowHandle();
+        return newWindow;
     }
 
     //**** sendKeys, highlight, scroll, wait and click methods ****

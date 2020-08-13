@@ -63,7 +63,6 @@ public class CriarOSSteps extends Reporter {
 
     @E("Informe o prefixo {string}")
     public void informe_o_prefixo(String prefixo) {
-        waitTime(3000);
         os.setPrefixo(prefixo);
     }
 
@@ -84,17 +83,20 @@ public class CriarOSSteps extends Reporter {
 
     @E("Informe a data e hora")
     public void informe_a_data_e_hora() {
-        os.setDataEHoraPartida();
+        os.setData();
+        os.setHora();
     }
 
     @Quando("Clico no botão salvar")
     public void clico_no_botão_salvar() {
+        addScreenshotToReport("");
         os.salvaEscalaTrem();
     }
 
     @Entao("Visualizo a OS criada")
     public void visualizo_a_OS_criada() {
-        //wip
+        os.handlingTable();
+        addScreenshotToReport("");
     }
 
 }
