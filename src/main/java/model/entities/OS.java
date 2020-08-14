@@ -1,8 +1,6 @@
 package model.entities;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -10,14 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.baseTest.BaseTest;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class OS extends BaseTest {
 
     private static String validaOrigemOS;
-    private static String currentWindow;
-    private static String newWindow;
 
     @FindBy(how = How.CLASS_NAME, using = "TITULO_TEXTO_geral")
     public WebElement validaTelaSelecionada;
@@ -68,8 +63,6 @@ public class OS extends BaseTest {
     public void validaTelaSelecionada(){
         existFrame("ext-gen113");
         Assert.assertTrue(getText(validaTelaSelecionada).equals("Visão"));
-        currentWindow = driver.getWindowHandle();
-        System.out.println("Current handle: " + currentWindow);
     }
 
     public void selecionaVisao(String tipoVisao){
@@ -90,10 +83,7 @@ public class OS extends BaseTest {
     }
 
     public void setPrefixo(String prefixoOS){
-        newWindow = driver.getWindowHandle();
-        System.out.println("new handle: " + newWindow);
-        driver.switchTo().window(newWindow);
-        //switchTab();
+        switchTabX();
         exist(prefixo);
         sendKeys(prefixo, prefixoOS);
     }
@@ -123,24 +113,19 @@ public class OS extends BaseTest {
 
     public void salvaEscalaTrem(){
         clickAndHighlight(salvar);
-
         waitTime(3500);
         if(driver.switchTo().alert() != null) {
             Alert alert = driver.switchTo().alert();
             alert.dismiss();
         }
-        waitTime(2500);
     }
 
     public void handlingTable(){
-        waitTime(5000);
-        driver.switchTo().window(currentWindow);
-        //switchTab();
-        waitTime(5000);
-        clickAndHighlight(lupa);
+        switchTabX();
+        existFrame("ext-gen113");
+        Assert.assertTrue(getText(validaTelaSelecionada).equals("Visão"));
         String resultData = tableOS.get(0).getText().trim();
         Assert.assertTrue(resultData.contains(validaOrigemOS));
     }
-
 
 }

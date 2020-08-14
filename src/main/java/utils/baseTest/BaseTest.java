@@ -14,10 +14,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import static utils.browserManager.ChromeDriverManager.getDriver;
 import static org.testng.Assert.*;
@@ -26,11 +23,11 @@ import static utils.properties.PropertiesHelper.*;
 
 public class BaseTest {
     int TIME_WAIT = Integer.parseInt(waitTime);
-    //int TIME_WAIT = 20;
     public static ThreadLocal<Scenario> testScenario = new ThreadLocal<>();
     private static final int LIMIT_RANDOM = 99999999; //variável usada no método getRandomNumber
     private static String typeOfFormat = "dd/MM/yyyy HH:mm:ss";
     private static DateFormat df = null;
+
 
     public WebDriver driver = getDriver();
 
@@ -43,32 +40,26 @@ public class BaseTest {
         driver.getCurrentUrl();
     }
 
-    protected void switchTab(){
-        // Current window handle
-        //String winHandleBefore = driver.getWindowHandle();
+    protected void switchTabX(){
 
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
-            System.out.println("handle: " + winHandle);
+        List<String> list = new ArrayList<>();
+        String currentWindow = driver.getWindowHandle();
+        list.add(currentWindow);
+
+        for(String allWindows : driver.getWindowHandles()){
+            list.add(allWindows);
         }
 
-        // Close the new window, if that window no more required
-
-        // Switch back to original browser (first window)
-        //driver.switchTo().window(winHandleBefore);
-        // Continue with original browser (first window)
+        for (int i = 0; i < list.size(); i++) {
+            if (list.isEmpty()){
+                throw new IllegalStateException("List can't be empty");
+            } else if (!list.get(i).equals(currentWindow)) {
+                driver.switchTo().window(list.get(i));
+                System.out.println("Switched to: " + list.get(i));
+            }
+        }
 
     }
-
-    public String getCurrentNameWindow(){
-        String winBefore = driver.getWindowHandle();
-        return winBefore;
-    }
-    public String getNewNameWindow(){
-        String newWindow = driver.getWindowHandle();
-        return newWindow;
-    }
-
     //**** sendKeys, highlight, scroll, wait and click methods ****
     public void sendKeys(WebElement element, String value) {
         try {
