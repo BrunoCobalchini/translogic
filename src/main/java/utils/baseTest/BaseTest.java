@@ -111,6 +111,16 @@ public class BaseTest {
             fail(e.getMessage());
         }
     }
+    public void selectElementByIndex(WebElement element, int item) {
+        try {
+            exist(element);
+            highlightElement(element);
+            Select select = new Select(element);
+            select.selectByIndex(item);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
     public void exist(WebElement element) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT);

@@ -1,6 +1,7 @@
 package model.entities;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -53,16 +54,14 @@ public class OS extends BaseTest {
     @FindBy(how = How.CSS, using = "div[id='linhasGrid']>table[class='TABELA'] :nth-child(1)")
     public List<WebElement> tableOS;
 
-    @FindBy(how = How.CSS, using = "[src*='all_ico_lupa.gif']")
-    public WebElement lupa;
+    @FindBy(how = How.NAME, using = "OS")
+    public WebElement pesquisaOS;
+
+    @FindBy(how = How.ID, using = "b_Pesquisar")
+    public WebElement btnPesquisaOS;
 
     public OS () {
         PageFactory.initElements(driver, this);
-    }
-
-    public void validaTelaSelecionada(){
-        existFrame("ext-gen113");
-        Assert.assertTrue(getText(validaTelaSelecionada).equals("Visão"));
     }
 
     public void selecionaVisao(String tipoVisao){
@@ -74,7 +73,7 @@ public class OS extends BaseTest {
         sendKeys(dataOS, getCurrentDate());
     }
 
-    public void pesquisaOS(){
+    public void clicaBtnPesquisaOS(){
         clickAndHighlight(pesquisar);
     }
 
@@ -126,6 +125,11 @@ public class OS extends BaseTest {
         Assert.assertTrue(getText(validaTelaSelecionada).equals("Visão"));
         String resultData = tableOS.get(0).getText().trim();
         Assert.assertTrue(resultData.contains(validaOrigemOS));
+    }
+
+    public void pesquisaOS(){
+        sendKeys(pesquisaOS,"1736689");
+        clickAndHighlight(btnPesquisaOS);
     }
 
 }

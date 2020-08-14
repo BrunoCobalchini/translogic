@@ -4,36 +4,14 @@ import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
-import model.entities.Login;
 import model.entities.OS;
-import model.entities.Tela;
 import utils.report.Reporter;
 
 import static utils.properties.PropertiesHelper.*;
 
 public class CriarOSSteps extends Reporter {
 
-    Login login = new Login();
-    Tela tela = new Tela();
     OS os = new OS();
-
-    @Dado("Que eu esteja na tela de admin do Translogic")
-    public void que_eu_esteja_na_tela_de_admin_do_Translogic() {
-        login.acessarTranslogic(urlTranslogic);
-        login.login(username, password);
-        addScreenshotToReport("");
-    }
-
-    @Quando("informo o código da tela {string}")
-    public void informo_o_código_da_tela(String cod) {
-        tela.selecionaTela(cod);
-        addLogToReport(cod);
-    }
-
-    @Entao("Visualizo a tela Controle de Pré-OS e OS")
-    public void visualizo_a_tela_Controle_de_Pré_OS_e_OS() {
-        os.validaTelaSelecionada();
-    }
 
     @E("Mudo a visão para {string}")
     public void mudo_a_visão_para(String tipoVisao) {
@@ -48,7 +26,7 @@ public class CriarOSSteps extends Reporter {
 
     @Quando("Clico em pesquisar")
     public void clico_em_pesquisar() {
-        os.pesquisaOS();
+        os.clicaBtnPesquisaOS();
     }
 
     @Entao("O botão para preencher a escala do trem é apresentada")
@@ -97,6 +75,11 @@ public class CriarOSSteps extends Reporter {
     public void visualizo_a_OS_criada() {
         os.handlingTable();
         addScreenshotToReport("");
+    }
+
+    @E("Pesquiso pela OS")
+    public void pesquiso_pela_OS() {
+        os.pesquisaOS();
     }
 
 }
