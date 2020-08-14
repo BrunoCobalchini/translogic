@@ -18,11 +18,17 @@ public class FormacaoDeTrem extends BaseTest {
     @FindBy(how = How.NAME, using = "list1")
     public WebElement listVagao;
 
+    @FindBy(how = How.NAME, using = "list2")
+    public WebElement listVagaoDesce;
+
     @FindBy(how = How.NAME, using = "hora")
     public WebElement setHora;
 
     @FindBy(how = How.CSS, using = "input[type='button'][value='Desce']")
     public WebElement btnDesce;
+
+    @FindBy(how = How.ID, using = "b_Salvar")
+    public WebElement btnSalvar;
 
     public FormacaoDeTrem () {
         PageFactory.initElements(driver, this);
@@ -37,6 +43,10 @@ public class FormacaoDeTrem extends BaseTest {
         sendKeys(setHora,"00:00:01");
         selectElementByIndex(listVagao,3);
         clickAndHighlight(btnDesce);
+        clickAndHighlight(btnSalvar);
+
+        selectElementByIndex(listVagaoDesce,0);
+
     }
 
     public void selecionaLocomotiva(){

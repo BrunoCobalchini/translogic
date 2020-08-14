@@ -117,6 +117,10 @@ public class BaseTest {
             highlightElement(element);
             Select select = new Select(element);
             select.selectByIndex(item);
+
+            String prop = select.getOptions().get(item).getCssValue("color");
+            System.out.println("Color: " + prop);
+
         } catch (Exception e) {
             fail(e.getMessage());
         }
