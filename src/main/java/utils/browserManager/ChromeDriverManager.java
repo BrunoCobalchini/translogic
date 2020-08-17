@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -36,8 +37,11 @@ public class ChromeDriverManager {
                 System.setProperty("webdriver.chrome.driver", pathToWebDriver + "chromedriver.exe");
                 driver = new ChromeDriver(chromeOptions());
             } else if (browser.equals("internetExplorer")) {
+                DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+                capabilities.setCapability(InternetExplorerDriver.
+                        INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
                 System.setProperty("webdriver.ie.driver", pathToWebDriver + "IEDriverServer.exe");
-                driver = new InternetExplorerDriver();
+                driver = new InternetExplorerDriver(capabilities);
             }
         }
         return driver;

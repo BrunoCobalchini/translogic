@@ -13,28 +13,43 @@ public class FormacaoDeTremSteps extends Reporter {
 
     @Dado("Que eu esteja na tela para formar o Trem")
     public void que_eu_esteja_na_tela_para_formar_o_Trem() {
+
+        formacaoDeTrem.teste();
+
+
         formacaoDeTrem.validaAbaAnxPedido();
     }
 
     @E("Selecione o vagão")
     public void selecione_o_vagão() {
         formacaoDeTrem.selecionaVagao();
-        waitTime(5000);
+        addScreenshotToReport("");
     }
 
     @E("Selecione a locomotiva")
     public void selecione_a_locomotiva() {
         formacaoDeTrem.selecionaLocomotiva();
+        addScreenshotToReport("");
     }
 
     @E("selecione o maquinista")
     public void selecione_o_maquinista() {
-        // wip
+        formacaoDeTrem.clicaBtnNovoMaquinista();
+        formacaoDeTrem.setMatriculaMaquinista();
+        formacaoDeTrem.setHora();
+        addScreenshotToReport("");
+        formacaoDeTrem.salvaNovoMaquinista();
+        formacaoDeTrem.validaMaquinistaSalvo();
     }
 
     @Quando("Clicar em liberar")
     public void clicar_em_liberar() {
         // wip
+    }
+
+    @Entao("O trem estará liberado")
+    public void o_trem_estará_liberado() {
+        // Wip
     }
 
 }

@@ -32,6 +32,7 @@ public class CriarOSSteps extends Reporter {
     @Entao("O botão para preencher a escala do trem é apresentada")
     public void o_botão_para_preencher_a_escala_do_trem_é_apresentada() {
         os.clicaBtnNovaEscala();
+        addScreenshotToReport("");
     }
 
     @Dado("Que eu esteja na tela para preencher a escala do trem")

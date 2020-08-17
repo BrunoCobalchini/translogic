@@ -112,11 +112,12 @@ public class OS extends BaseTest {
 
     public void salvaEscalaTrem(){
         clickAndHighlight(salvar);
-        waitTime(3500);
+        alertManagement();
+/*        waitTime(3500);
         if(driver.switchTo().alert() != null) {
             Alert alert = driver.switchTo().alert();
             alert.dismiss();
-        }
+        }*/
     }
 
     public void handlingTable(){
@@ -128,7 +129,7 @@ public class OS extends BaseTest {
     }
 
     public void pesquisaOS(){
-        sendKeys(pesquisaOS,"1736689");
+        sendKeys(pesquisaOS,"1736699");
         clickAndHighlight(btnPesquisaOS);
     }
 

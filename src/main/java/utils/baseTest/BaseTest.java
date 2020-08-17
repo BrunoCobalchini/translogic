@@ -1,10 +1,8 @@
 package utils.baseTest;
 
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -44,6 +42,7 @@ public class BaseTest {
 
         List<String> list = new ArrayList<>();
         String currentWindow = driver.getWindowHandle();
+        System.out.println("Current window: " + currentWindow);
         list.add(currentWindow);
 
         for(String allWindows : driver.getWindowHandles()){
@@ -60,6 +59,10 @@ public class BaseTest {
         }
 
     }
+    public void switchFrame(String frameName){
+        driver.switchTo().frame(frameName);
+    }
+
     //**** sendKeys, highlight, scroll, wait and click methods ****
     public void sendKeys(WebElement element, String value) {
         try {
@@ -117,10 +120,6 @@ public class BaseTest {
             highlightElement(element);
             Select select = new Select(element);
             select.selectByIndex(item);
-
-            String prop = select.getOptions().get(item).getCssValue("color");
-            System.out.println("Color: " + prop);
-
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -161,18 +160,7 @@ public class BaseTest {
             e.printStackTrace();
         }
     }
-    public boolean isDisplayed(WebElement element){
 
-        try{
-            System.out.println("Waiting in isDisplayed method");
-            waitTime(1500);
-            element.isDisplayed();
-            return true;
-        } catch (org.openqa.selenium.NoSuchElementException e){
-            return false;
-        }
-
-    }
     public void scrollToElement(WebElement element){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);
@@ -180,6 +168,33 @@ public class BaseTest {
     public void scrollByPixel(int x, int y){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript ("window.scrollBy (" + x + ", " + y + ")");
+    }
+    //**** Alert Management ****
+    public void alertManagement(){
+        waitTime(3500);
+        if(driver.switchTo().alert() != null) {
+            Alert alert = driver.switchTo().alert();
+            if (alert.getText().contains("Confirma a anexação da locomotiva?")) {
+                System.out.println("Accept: " + alert.getText());
+                alert.accept();
+            } else {
+                System.out.println("Dismiss: " + alert.getText());
+                alert.dismiss();
+            }
+        }
+    }
+
+    //**** CSS methods ****
+    public String colorRGBAToHex(WebElement element){
+        try {
+            String color = element.getCssValue("color");
+            String hex = Color.fromString(color).asHex();
+            //System.out.println("Color: " + hex);
+            return hex;
+        } catch (Exception e) {
+            fail(e.getMessage());
+            return null;
+        }
     }
 
     //**** String and text methods ****
