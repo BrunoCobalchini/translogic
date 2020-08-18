@@ -60,6 +60,7 @@ public class BaseTest {
 
     }
     public void switchFrame(String frameName){
+        waitTime(5000);
         driver.switchTo().frame(frameName);
     }
 
@@ -171,7 +172,8 @@ public class BaseTest {
     }
     //**** Alert Management ****
     public void alertManagement(){
-        waitTime(3500);
+        WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT);
+        wait.until(ExpectedConditions.alertIsPresent());
         if(driver.switchTo().alert() != null) {
             Alert alert = driver.switchTo().alert();
             if (alert.getText().contains("Confirma a anexação da locomotiva?")) {

@@ -129,7 +129,7 @@ public class OS extends BaseTest {
     }
 
     public void pesquisaOS(){
-        sendKeys(pesquisaOS,"1736699");
+        sendKeys(pesquisaOS,"1736704");
         clickAndHighlight(btnPesquisaOS);
     }
 

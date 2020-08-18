@@ -13,10 +13,6 @@ public class FormacaoDeTremSteps extends Reporter {
 
     @Dado("Que eu esteja na tela para formar o Trem")
     public void que_eu_esteja_na_tela_para_formar_o_Trem() {
-
-        formacaoDeTrem.teste();
-
-
         formacaoDeTrem.validaAbaAnxPedido();
     }
 
@@ -40,6 +36,7 @@ public class FormacaoDeTremSteps extends Reporter {
         addScreenshotToReport("");
         formacaoDeTrem.salvaNovoMaquinista();
         formacaoDeTrem.validaMaquinistaSalvo();
+        addScreenshotToReport("");
     }
 
     @Quando("Clicar em liberar")

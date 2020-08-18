@@ -48,7 +48,7 @@ public class FormacaoDeTrem extends BaseTest {
     @FindBy(how = How.NAME, using = "matricula")
     public WebElement matriculaMaquinista;
 
-    @FindBy(how = How.CSS, using = "iframe[name='frEquipagem']")
+    @FindBy(how = How.NAME, using = "frEquipagem")
     public WebElement frameTest;
 
     public FormacaoDeTrem () {
@@ -89,8 +89,10 @@ public class FormacaoDeTrem extends BaseTest {
     }
 
     public void setMatriculaMaquinista(){
+        waitTime(7000);
         switchTabX();
-        System.out.println("Frame props: " + frameTest.getAttribute("src"));
+        existFrame("frEquipagem");
+        driver.switchTo().activeElement();
         exist(matriculaMaquinista);
         sendKeys(matriculaMaquinista,"123456");
     }
@@ -101,35 +103,31 @@ public class FormacaoDeTrem extends BaseTest {
 
     public void salvaNovoMaquinista(){
         clickAndHighlight(btnSalvar);
+        switchTabX();
+        waitTime(5000);
         alertManagement();
-/*        waitTime(3500);
-        if(driver.switchTo().alert() != null) {
-            Alert alert = driver.switchTo().alert();
-            alert.dismiss();
-        }*/
+        waitTime(3000);
     }
 
     public void validaMaquinistaSalvo(){
-        waitTime(5000);
-        switchTabX();
+        driver.switchTo().frame("ext-gen113");
         exist(btnNovoMaquinista);
+        Assert.assertTrue(btnNovoMaquinista.getAttribute("src").contains("all_ico_novo.gif"));
     }
-
-    @FindBy(how = How.CSS, using = "input[name'matricula']")
-    public WebElement tableOS;
 
     public void teste(){
         clickAndHighlight(abaEquipagem);
         exist(btnNovoMaquinista);
         clickAndHighlight(btnNovoMaquinista);
 
+        waitTime(7000);
+
         switchTabX();
 
-        String url = frameTest.getAttribute("src");
-
-        System.out.println("Frame props: " + frameTest.getAttribute("src"));
-        //System.out.println("Frame props: " + frameTest.getTagName());
-        waitTime(5000);
+        existFrame("frEquipagem");
+        //switchFrame("frEquipagem");
+        driver.switchTo().activeElement();
+        //driver.switchTo().frame("frEquipagem");
 
         exist(matriculaMaquinista);
         sendKeys(matriculaMaquinista,"123456");
@@ -137,11 +135,18 @@ public class FormacaoDeTrem extends BaseTest {
         sendKeys(setHora,"00:00:03");
 
         clickAndHighlight(btnSalvar);
-        alertManagement();
+        switchTabX();
+        //driver.switchTo().activeElement();
 
         waitTime(5000);
-        switchTabX();
+        alertManagement();
+        //switchTabX();
+        waitTime(3000);
+        driver.switchTo().frame("ext-gen113");
+
+        //waitTime(5000);
         exist(btnNovoMaquinista);
+        Assert.assertTrue(btnNovoMaquinista.getAttribute("src").contains("all_ico_novo.gif"));
     }
 
 }
