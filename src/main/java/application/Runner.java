@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         glue = "stepDefinition",
-        tags = "@FORMACAODETREM",
+        tags = "@MOVIMENTACAODETREM",
         plugin = {
                 "json:target/cucumber-report/cucumber.json"
         },

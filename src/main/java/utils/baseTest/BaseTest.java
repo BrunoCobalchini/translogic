@@ -179,9 +179,23 @@ public class BaseTest {
             if (alert.getText().contains("Confirma a anexação da locomotiva?")) {
                 System.out.println("Accept: " + alert.getText());
                 alert.accept();
-            } else {
+            } else if (alert.getText().contains("TBC do trem")) {
+                System.out.println("Accept: " + alert.getText());
+                alert.accept();
+            } else if (alert.getText().contains("Justifique o motivo do atraso")) {
+                System.out.println("Accept: " + alert.getText());
+                alert.dismiss();
+            } else if (alert.getText().contains("Tem certeza que deseja liberar este trem?")) {
+                System.out.println("Accept: " + alert.getText());
+                alert.accept();
+            } else if (alert.getText().contains("Erro ao consultar OS:")) {
+                System.out.println("Accept: " + alert.getText());
+                alert.dismiss();
+            } else if (alert.getText().contains(" ")) {
                 System.out.println("Dismiss: " + alert.getText());
                 alert.dismiss();
+            } else {
+                System.out.println("Nenhum alerta encontrado");
             }
         }
     }

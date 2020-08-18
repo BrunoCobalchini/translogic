@@ -1,14 +1,11 @@
 package model.entities;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.baseTest.BaseTest;
-
-import java.util.List;
 
 public class FormacaoDeTrem extends BaseTest {
 
@@ -24,9 +21,6 @@ public class FormacaoDeTrem extends BaseTest {
     @FindBy(how = How.NAME, using = "list1")
     public WebElement listVagao;
 
-    @FindBy(how = How.NAME, using = "list2")
-    public WebElement listVagaoDesce;
-
     @FindBy(how = How.CSS, using = "select[name='list2'] :nth-child(1)")
     public WebElement vagaoSelecionado;
 
@@ -39,6 +33,9 @@ public class FormacaoDeTrem extends BaseTest {
     @FindBy(how = How.ID, using = "b_Salvar")
     public WebElement btnSalvar;
 
+    @FindBy(how = How.ID, using = "b_Liberar")
+    public WebElement btnLiberar;
+
     @FindBy(how = How.CSS, using = "input[type='button'][value='>>']")
     public WebElement insereLoco;
 
@@ -48,8 +45,11 @@ public class FormacaoDeTrem extends BaseTest {
     @FindBy(how = How.NAME, using = "matricula")
     public WebElement matriculaMaquinista;
 
-    @FindBy(how = How.NAME, using = "frEquipagem")
-    public WebElement frameTest;
+    @FindBy(how = How.NAME, using = "HoraLib")
+    public WebElement setHoraoraLiberacao;
+
+    @FindBy(how = How.NAME, using = "ate")
+    public WebElement validaLiberacao;
 
     public FormacaoDeTrem () {
         PageFactory.initElements(driver, this);
@@ -115,38 +115,25 @@ public class FormacaoDeTrem extends BaseTest {
         Assert.assertTrue(btnNovoMaquinista.getAttribute("src").contains("all_ico_novo.gif"));
     }
 
-    public void teste(){
-        clickAndHighlight(abaEquipagem);
-        exist(btnNovoMaquinista);
-        clickAndHighlight(btnNovoMaquinista);
-
-        waitTime(7000);
-
-        switchTabX();
-
-        existFrame("frEquipagem");
-        //switchFrame("frEquipagem");
-        driver.switchTo().activeElement();
-        //driver.switchTo().frame("frEquipagem");
-
-        exist(matriculaMaquinista);
-        sendKeys(matriculaMaquinista,"123456");
-
-        sendKeys(setHora,"00:00:03");
-
-        clickAndHighlight(btnSalvar);
-        switchTabX();
-        //driver.switchTo().activeElement();
-
-        waitTime(5000);
+    public void liberaTrem(){
+        exist(btnLiberar);
+        clickAndHighlight(btnLiberar);
+        alertManagement(); //TBC-limite do trecho
+        setHoraoraLiberacao.clear();
+        sendKeys(setHoraoraLiberacao,"00:00:04");
+        exist(btnLiberar);
+        clickAndHighlight(btnLiberar);
+        alertManagement(); // Erro ao consultar OS:
+        //alert "travas"
+        alertManagement(); //Justifique o motivo do atraso
+        waitTime(4000);
         alertManagement();
-        //switchTabX();
-        waitTime(3000);
-        driver.switchTo().frame("ext-gen113");
+    }
 
-        //waitTime(5000);
-        exist(btnNovoMaquinista);
-        Assert.assertTrue(btnNovoMaquinista.getAttribute("src").contains("all_ico_novo.gif"));
+    public void validaLiberacaoTrem(){
+        waitTime(5000);
+        exist(validaLiberacao);
+        Assert.assertTrue(validaLiberacao.isDisplayed());
     }
 
 }

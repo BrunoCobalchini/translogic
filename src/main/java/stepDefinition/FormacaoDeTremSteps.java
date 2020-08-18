@@ -36,17 +36,17 @@ public class FormacaoDeTremSteps extends Reporter {
         addScreenshotToReport("");
         formacaoDeTrem.salvaNovoMaquinista();
         formacaoDeTrem.validaMaquinistaSalvo();
-        addScreenshotToReport("");
     }
 
     @Quando("Clicar em liberar")
     public void clicar_em_liberar() {
-        // wip
+        formacaoDeTrem.liberaTrem();
     }
 
     @Entao("O trem estará liberado")
     public void o_trem_estará_liberado() {
-        // Wip
+        formacaoDeTrem.validaLiberacaoTrem();
+        addScreenshotToReport("Trem liberado com sucesso");
     }
 
 }

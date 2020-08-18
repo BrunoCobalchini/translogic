@@ -39,6 +39,8 @@ public class Tela extends BaseTest {
             Assert.assertTrue(getText(validaTelaOS).equals(item));
         } else if (telaApresentada.equals("Formação Trem")) {
             Assert.assertTrue(getText(validaTelaFormacaoTrem).equals(item));
+        } else if (telaApresentada.equals("Movimentação Trem")) {
+            Assert.assertTrue(getText(validaTelaFormacaoTrem).equals(item));
         }
     }
 
