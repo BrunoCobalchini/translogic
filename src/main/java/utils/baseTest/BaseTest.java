@@ -173,8 +173,7 @@ public class BaseTest {
     //**** Alert Management ****
     public void alertManagement(){
         WebDriverWait wait = new WebDriverWait(driver, TIME_WAIT);
-        wait.until(ExpectedConditions.alertIsPresent());
-        if(driver.switchTo().alert() != null) {
+        if(wait.until(ExpectedConditions.alertIsPresent()) != null) {
             Alert alert = driver.switchTo().alert();
             if (alert.getText().contains("Confirma a anexação da locomotiva?")) {
                 System.out.println("Accept: " + alert.getText());
@@ -191,7 +190,11 @@ public class BaseTest {
             } else if (alert.getText().contains("Erro ao consultar OS:")) {
                 System.out.println("Accept: " + alert.getText());
                 alert.dismiss();
-            } else if (alert.getText().contains(" ")) {
+            } else if (alert.getText().contains("Alteração efetuada com sucesso")) {
+                System.out.println("Accept: " + alert.getText());
+                alert.accept();
+            }
+            else if (alert.getText().contains(" ")) {
                 System.out.println("Dismiss: " + alert.getText());
                 alert.dismiss();
             } else {
@@ -213,7 +216,7 @@ public class BaseTest {
         }
     }
 
-    //**** String and text methods ****
+    //**** String, numbers and text methods ****
     public String getText(WebElement element) {
         try {
             waitTime(2000);
@@ -226,7 +229,6 @@ public class BaseTest {
         }
     }
 
-    //**** Number and date methods ****
     public static int getRandomNumber(@Nullable Integer limite) {
         if (limite != null) {
             return new Random().nextInt(limite);

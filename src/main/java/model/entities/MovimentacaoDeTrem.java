@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.baseTest.BaseTest;
 
+import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.List;
 
 public class MovimentacaoDeTrem extends BaseTest {
@@ -25,6 +27,21 @@ public class MovimentacaoDeTrem extends BaseTest {
 
     @FindBy(how = How.NAME, using = "horaChegada")
     public WebElement horaChegada;
+
+    @FindBy(how = How.NAME, using = "dataSaida")
+    public WebElement dataSaida;
+
+    @FindBy(how = How.NAME, using = "saidaPrevista")
+    public WebElement saidaPrevista;
+
+    @FindBy(how = How.NAME, using = "horaSaida")
+    public WebElement horaSaida;
+
+    @FindBy(how = How.ID, using = "b_Salvar")
+    public WebElement btnSalvar;
+
+    @FindBy(how = How.ID, using = "b_Sair")
+    public WebElement btnSair;
 
     public MovimentacaoDeTrem () {
         PageFactory.initElements(driver, this);
@@ -61,9 +78,45 @@ public class MovimentacaoDeTrem extends BaseTest {
     }
 
     public void setHoraChegada(){
-        String horaChegadaPrevista = chegadaPrevista.getAttribute("value");
-        System.out.println("Hora da chegada prevista: " + horaChegadaPrevista.substring(17));
-        waitTime(5000);
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMinimumIntegerDigits(2);
+
+        if (!horaChegada.getAttribute("value").isEmpty()) {
+            String horaChegadaPrevista = chegadaPrevista.getAttribute("value");
+            horaChegadaPrevista = horaChegadaPrevista.substring(11);
+
+            String[] horaChegadaPrevistaSplit = horaChegadaPrevista.split(":");
+
+            int a = Integer.parseInt(horaChegadaPrevistaSplit[0]);
+            int b = Integer.parseInt(horaChegadaPrevistaSplit[1]);
+            int c = Integer.parseInt(horaChegadaPrevistaSplit[2]) + 1;
+
+            sendKeys(horaChegada,nf.format(a) + nf.format(b) + nf.format(c));
+        }
+    }
+
+    public void setDataSaida(){
+        exist(dataSaida);
+        sendKeys(dataSaida, getCurrentDate());
+    }
+
+    public void setHoraSaida(){
+        String horaSaidaPrevista = saidaPrevista.getAttribute("value");
+        horaSaidaPrevista = horaSaidaPrevista.substring(11);
+        sendKeys(horaSaida,horaSaidaPrevista);
+    }
+
+    public void salvarMovimentacaoTrem(){
+        clickAndHighlight(btnSalvar);
+    }
+
+    public void sairMovimentacaoTrem(){
+        exist(btnSair);
+        clickAndHighlight(btnSair);
+    }
+
+    public void validaMovimentacaoTrem(){
+        //wip
     }
 
 }

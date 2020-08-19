@@ -123,11 +123,11 @@ public class FormacaoDeTrem extends BaseTest {
         sendKeys(setHoraoraLiberacao,"00:00:04");
         exist(btnLiberar);
         clickAndHighlight(btnLiberar);
-        alertManagement(); // Erro ao consultar OS:
+        alertManagement(); //Erro ao consultar OS:
         //alert "travas"
         alertManagement(); //Justifique o motivo do atraso
         waitTime(4000);
-        alertManagement();
+        alertManagement(); //Liberar Trem
     }
 
     public void validaLiberacaoTrem(){

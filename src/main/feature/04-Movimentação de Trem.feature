@@ -12,3 +12,8 @@
       E Seleciono a estação clicando na lupa
       E Preencho a data de chegada
       E Preencho a hora de chegada
+      E Preencho a data de saída
+      E Preencho a hora de saída
+      Quando Eu clicar no botão salvar
+      E Eu clicar no botão sair
+      Entao Visualizo a movimentação do Trem
