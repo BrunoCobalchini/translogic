@@ -8,7 +8,6 @@ import org.testng.Assert;
 import utils.baseTest.BaseTest;
 
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.List;
 
 public class MovimentacaoDeTrem extends BaseTest {
@@ -92,6 +91,8 @@ public class MovimentacaoDeTrem extends BaseTest {
             int c = Integer.parseInt(horaChegadaPrevistaSplit[2]) + 1;
 
             sendKeys(horaChegada,nf.format(a) + nf.format(b) + nf.format(c));
+        } else {
+            System.out.println("Primeira movimentação do trem já foi realizada");
         }
     }
 
@@ -116,7 +117,17 @@ public class MovimentacaoDeTrem extends BaseTest {
     }
 
     public void validaMovimentacaoTrem(){
-        //wip
+        boolean dadosMovimentacaDoTrem = false;
+        String dadosMovimentacao = "ZBV-PC 19/08/2020 00:05:05 19/08/2020 00:07:04";
+        System.out.println("**** VALIDA MOVIMENTAÇÃO DE TREM ****");
+        for (int i = 0; i < tableRoteiroTrem.size(); i++){
+            if (tableRoteiroTrem.get(i).getText().contains(dadosMovimentacao)){
+                System.out.println("Movimentação: " + tableRoteiroTrem.get(i).getText());
+                dadosMovimentacaDoTrem = true;
+                break;
+            }
+        }
+        Assert.assertTrue(dadosMovimentacaDoTrem, "Dados de movimentação inválidos");
     }
 
 }

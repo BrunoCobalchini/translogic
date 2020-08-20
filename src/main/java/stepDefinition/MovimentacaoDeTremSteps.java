@@ -45,6 +45,7 @@ public class MovimentacaoDeTremSteps extends Reporter {
 
     @Quando("Eu clicar no botão salvar")
     public void eu_clicar_no_botão_salvar() {
+        addScreenshotToReport("");
         movimentacaoDeTrem.salvarMovimentacaoTrem();
     }
 
@@ -56,6 +57,7 @@ public class MovimentacaoDeTremSteps extends Reporter {
     @Entao("Visualizo a movimentação do Trem")
     public void visualizo_a_movimentação_do_Trem() {
         movimentacaoDeTrem.validaMovimentacaoTrem();
+        addScreenshotToReport("");
     }
 
 }

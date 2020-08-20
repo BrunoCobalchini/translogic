@@ -13,6 +13,8 @@ public class FrameManager extends BaseTest {
             frameName = "ext-gen113";
         } else if (frameName.equals("Movimentação Trem")){
             frameName = "ext-gen113";
+        } else if (frameName.equals("Paradas Trem")) {
+            frameName = "ext-gen113";
         }
         return frameName;
     }
