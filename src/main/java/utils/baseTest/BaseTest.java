@@ -314,6 +314,13 @@ public class BaseTest {
         return  dataAtualFormatada;
     }
 
+    public String getCurrentHour(){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date dataAtual = new Date();
+        String horaAtualFormatada = sdf.format(dataAtual);
+        return  horaAtualFormatada;
+    }
+
     //**** file methods ****
     public void uploadFile(WebElement element, String fileName) {
         highlightElement(element);

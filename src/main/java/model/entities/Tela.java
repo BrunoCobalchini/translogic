@@ -43,6 +43,8 @@ public class Tela extends BaseTest {
             Assert.assertTrue(getText(validaTelaFormacaoTrem).equals(item));
         } else if (telaApresentada.equals("Paradas Trem")) {
             Assert.assertTrue(getText(validaTelaFormacaoTrem).equals(item));
+        } else if (telaApresentada.equals("Encerramento Trem")) {
+            Assert.assertTrue(getText(validaTelaFormacaoTrem).equals(item));
         }
     }
 

@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         glue = "stepDefinition",
-        tags = "@PARADADETREM",
+        tags = "@ENCERRAMENTODETREM",
         plugin = {
                 "json:target/cucumber-report/cucumber.json"
         },
